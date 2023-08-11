@@ -1,0 +1,21 @@
+services:
+
+  maven:
+    container_name: maven
+    build:
+      context: ./maven/
+    volumes:
+      - webapps:/home/webapps
+
+  tomcat:
+    image: tomcat
+    container_name: tomcat
+    ports:
+      - "8081:8080"
+    depends_on:
+      - maven
+    volumes:
+      - webapps:/usr/local/tomcat/webapps
+
+volumes:
+  webapps:
